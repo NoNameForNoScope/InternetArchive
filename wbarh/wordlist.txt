@@ -1,0 +1,9 @@
+/index
+/index.html
+/about
+/profile
+/login
+/files
+/uploads
+/sitemap.xml
+/contact

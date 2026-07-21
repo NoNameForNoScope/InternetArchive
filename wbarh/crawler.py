@@ -4,7 +4,7 @@ from collections import deque
 from urllib.parse import urljoin, urlparse
 
 from processor import proceseaza_pagina
-
+from wordlist_probe import probeaza_wordlist
 
 
 def _nume_pagina(url):
@@ -18,11 +18,19 @@ def _logheaza(output_dir, mesaj):
         f.write(mesaj + "\n")
 
 
-def crawleaza(start_url, output_dir, max_depth=2):
+def crawleaza(start_url, output_dir, max_depth=2, wordlist_path="wordlist.txt"):
   
     vizitate = set([start_url])
     coada = deque([(start_url, 0)])
     domeniu = urlparse(start_url).netloc
+
+    scheme = urlparse(start_url).scheme
+    domeniu_url = f"{scheme}://{domeniu}"
+    gasite = probeaza_wordlist(domeniu_url, wordlist_path)
+    for url in gasite:
+        if url not in vizitate:
+            vizitate.add(url)
+            coada.append((url, 0))
 
     while coada:
         url, depth = coada.popleft()

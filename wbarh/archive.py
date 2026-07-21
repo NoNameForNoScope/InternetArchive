@@ -20,7 +20,7 @@ def main():
         proceseaza_pagina(args.url, args.output)
         return
 
-    crawleaza(args.url, args.output, max_depth=args.depth)
+    crawleaza(args.url, args.output, max_depth=args.depth, wordlist_path=args.wordlist)
 
 
 if __name__ == "__main__":
