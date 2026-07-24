@@ -6,12 +6,13 @@ from processor import proceseaza_pagina
 
 
 def main():
-    parser = argparse.ArgumentParser(description="web scraping")
+    parser = argparse.ArgumentParser(description="salveaza o pagina sau un domeniu ca sa poata fi deschis offline")
     parser.add_argument("-u", "--url", required=True)
     parser.add_argument("-m", "--mode", choices=["page", "domain"], default="page")
     parser.add_argument("-o", "--output", default="snapshot")
     parser.add_argument("-d", "--depth", type=int, default=2) 
     parser.add_argument("-w", "--wordlist", default="wordlist.txt")  
+    parser.add_argument("-s", "--delay", type=float, default=0.3)
 
     args = parser.parse_args()
     seteaza_foldere(args.output)
@@ -20,7 +21,7 @@ def main():
         proceseaza_pagina(args.url, args.output)
         return
 
-    crawleaza(args.url, args.output, max_depth=args.depth, wordlist_path=args.wordlist)
+    crawleaza(args.url, args.output, max_depth=args.depth, wordlist_path=args.wordlist, delay=args.delay)
 
 
 if __name__ == "__main__":
